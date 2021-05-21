@@ -10,37 +10,34 @@ USER_CHOICE = """\n Hi my dear user, I'll show you the menu:
 
 Please, type an option: """
 
-
+user_action = {
+    "a": database.add_book,
+    "l": database.list_books,
+    "r": database.mark_as_read,
+    "d": database.delete_book
+}
 
 
 def menu():
     user_choise = str(input(USER_CHOICE))
 
     while user_choise != "q":
-        
-        if user_choise == "a":
-            book_name = str(input("Please enter the Book's name: "))
-            book_author = str(input("Please enter the Book's author: "))
-            database.add_book(book_name, book_author)
-            user_choise = str(input(USER_CHOICE))
 
-        elif user_choise == "r":
+        if user_choise in ["a","r","d"]:
             book_name = str(input("Please enter the Book's name: "))
             book_author = str(input("Please enter the Book's author: "))
-            database.mark_as_read(book_name, book_author)
-            user_choise = str(input(USER_CHOICE))
+            user_action[user_choise](book_name,book_author)
 
-        elif user_choise == "d":
-            book_name = str(input("Please enter the Book's name: "))
-            book_author = str(input("Please enter the Book's author: "))
-            database.delete_book(book_name, book_author)
-            user_choise = str(input(USER_CHOICE))
-        
         elif user_choise == "l":
-            database.list_books()
-            user_choise = str(input(USER_CHOICE))
-        
+            user_action[user_choise]()
+
+        elif user_choise == "q":
+            break
+
         else:
             user_choise = str(input(USER_CHOICE))
+        
+        user_choise = str(input(USER_CHOICE))
 
 menu()
+
