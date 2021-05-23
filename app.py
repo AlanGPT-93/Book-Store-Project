@@ -14,6 +14,8 @@ Please, type an option: """
 
 
 def menu():
+    database.create_table()
+    print("\n")
     user_choise = str(input(USER_CHOICE))
 
     while user_choise != "q":
