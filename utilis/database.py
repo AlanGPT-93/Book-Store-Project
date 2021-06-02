@@ -3,14 +3,13 @@ Concerned with storing and retrieving books from a list.
 
 """
 
-import sqlite3
+#import sqlite3
+from .context_manager import DataConnection
 
 def create_table():
-    connection = sqlite3.connect("data.db")
-    cursor = connection.cursor()
-    cursor.execute("CREATE Table IF NOT EXISTS books(name text pk, author text, read int16 ) ")
-    connection.commit()
-    connection.close()
+    with DataConnection() as connection :
+        cursor = connection.cursor()
+        cursor.execute("CREATE Table IF NOT EXISTS books(name text pk, author text, read int16 ) ")
 
 def add_book(book_name,book_author):
     connection = sqlite3.connect("data.db")
